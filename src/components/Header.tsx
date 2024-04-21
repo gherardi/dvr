@@ -11,12 +11,13 @@ import Input from './ui/Input';
 import FormDialog from './ui/FormDialog';
 
 const schema = z.object({
-	ragione_sociale: z.string(),
+	ragione_sociale: z.string().min(1),
 	costante_peso: z.enum(['UOMO', 'DONNA']),
 	altezza_mani_terra: z.number(),
 	distanza_verticale_peso: z.number(),
 	distanza_orizzontale_mani: z.number(),
-	dislocazione_angolare: z.enum(['buono', 'scarso']),
+	dislocazione_angolare: z.number(), // in gradi
+	giudizio_presa_carico: z.enum(['buono', 'scarso']),
 	frequenza_gesti: z.number(),
 	frequenza: z.enum(['1', '2', '3']),
 	peso_sollevato: z.number(),
@@ -49,7 +50,7 @@ const Header = () => {
 	return (
 		<>
 			<header className='flex justify-between py-10'>
-				<h4 className='text-xl font-bold'>Documento valutazione rischi</h4>
+				<h4 className='text-xl font-semibold'>Documento valutazione rischi</h4>
 				<button
 					type='button'
 					onClick={openModal}
@@ -80,17 +81,21 @@ const Header = () => {
 					<div className='space-y-1'>
 						<Label htmlFor={'costante_peso'}>Costante di peso</Label>
 						<div>
-							<Input
-								reactHookFormRegister={register('costante_peso')}
-								name='costante_peso'
-								type='number'
-								isPending={isSubmitting}
-							/>
+							<select
+								{...register('costante_peso')}
+								id='costante_peso'
+								className='w-full'
+							>
+								<option value='UOMO'>Uomo</option>
+								<option value='DONNA'>Donna</option>
+							</select>
 						</div>
 					</div>
 
 					<div className='space-y-1'>
-						<Label htmlFor={'altezza_mani_terra'}>altezza_mani_terra</Label>
+						<Label htmlFor={'altezza_mani_terra'}>
+							Altezza delle mani da terra all'inizio del sollevamento
+						</Label>
 						<div>
 							<Input
 								reactHookFormRegister={register('altezza_mani_terra')}
@@ -102,7 +107,8 @@ const Header = () => {
 					</div>
 					<div className='space-y-1'>
 						<Label htmlFor={'distanza_verticale_peso'}>
-							distanza_verticale_peso
+							Distanza vertical di spostamento del peso da inizio a fine
+							sollevamento
 						</Label>
 						<div>
 							<Input
@@ -115,7 +121,8 @@ const Header = () => {
 					</div>
 					<div className='space-y-1'>
 						<Label htmlFor={'distanza_orizzontale_mani'}>
-							distanza_orizzontale_mani
+							Distanza orizzontale tra le mani ed il punto di mezzo delle
+							caviglie
 						</Label>
 						<div>
 							<Input
@@ -129,7 +136,7 @@ const Header = () => {
 
 					<div className='space-y-1'>
 						<Label htmlFor={'dislocazione_angolare'}>
-							dislocazione_angolare
+							Dislocazione angolare del peso
 						</Label>
 						<div>
 							<Input
@@ -142,7 +149,26 @@ const Header = () => {
 					</div>
 
 					<div className='space-y-1'>
-						<Label htmlFor={'frequenza_gesti'}>frequenza_gesti</Label>
+						<Label htmlFor={'giudizio_presa_carico'}>
+							Giudizio sulla presa di carico
+						</Label>
+						<div>
+							<select
+								{...register('giudizio_presa_carico')}
+								id='giudizio_presa_carico'
+								className='w-full'
+							>
+								<option value='buono'>Buono</option>
+								<option value='scarso'>Scarso</option>
+							</select>
+						</div>
+					</div>
+
+					<div className='space-y-1'>
+						<Label htmlFor={'frequenza_gesti'}>
+							Frequenza dei gesti: Numero di atti di sollevamento in relazione
+							alla durata (vedi voce successiva)
+						</Label>
 						<div>
 							<Input
 								reactHookFormRegister={register('frequenza_gesti')}
@@ -154,7 +180,7 @@ const Header = () => {
 					</div>
 
 					<div className='space-y-1'>
-						<Label htmlFor={'frequenza'}>frequenza</Label>
+						<Label htmlFor={'frequenza'}>Frequenza</Label>
 						<div>
 							<Input
 								reactHookFormRegister={register('frequenza')}
@@ -166,7 +192,9 @@ const Header = () => {
 					</div>
 
 					<div className='space-y-1'>
-						<Label htmlFor={'peso_sollevato'}>peso_sollevato</Label>
+						<Label htmlFor={'peso_sollevato'}>
+							Peso effettivamente sollevato
+						</Label>
 						<div>
 							<Input
 								reactHookFormRegister={register('peso_sollevato')}
@@ -180,7 +208,7 @@ const Header = () => {
 					<div>
 						<button
 							type='submit'
-							className='w-full rounded-md bg-indigo-600 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+							className='w-full border py-3 text-sm'
 							disabled={isSubmitting}
 						>
 							{isSubmitting ? 'Caricamento...' : 'genera'}
@@ -191,6 +219,8 @@ const Header = () => {
 		</>
 	);
 };
+
+// className='w-full rounded-md bg-indigo-600 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 
 /*
 TODO
