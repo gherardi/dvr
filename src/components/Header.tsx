@@ -39,7 +39,7 @@ const Header = () => {
 	// 	{ name: new Date().toLocaleString(), completed: false },
 	// ]);
 
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	const openModal = () => setIsOpen(true);
 	const closeModal = () => setIsOpen(false);
