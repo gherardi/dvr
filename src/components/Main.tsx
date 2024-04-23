@@ -1,41 +1,45 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+// import { zodResolver } from '@hookform/resolvers/zod';
+// import { z } from 'zod';
+import { jsPDF } from 'jspdf';
 
 import { FormValues } from '../interfaces';
 import Label from './ui/Label';
 import Input from './ui/Input';
 
-const schema = z.object({
-	ragione_sociale: z.string().min(1),
-	costante_peso: z.enum(['UOMO', 'DONNA']),
-	altezza_mani_terra: z.preprocess(
-		(a) => parseInt(z.string().parse(a), 10),
-		z.number()
-	),
-	distanza_verticale_peso: z.string(),
-	distanza_orizzontale_mani: z.string(),
-	dislocazione_angolare: z.string(), // in gradi
-	giudizio_presa_carico: z.enum(['buono', 'scarso']),
-	frequenza_gesti: z.string(),
-	frequenza: z.enum(['1', '2', '3']),
-	peso_sollevato: z.string(),
-});
+// const schema = z.object({
+// 	ragione_sociale: z.string().min(1),
+// 	costante_peso: z.enum(['UOMO', 'DONNA']),
+// 	altezza_mani_terra: z.preprocess(
+// 		(a) => parseInt(z.string().parse(a), 10),
+// 		z.number()
+// 	),
+// 	distanza_verticale_peso: z.string(),
+// 	distanza_orizzontale_mani: z.string(),
+// 	dislocazione_angolare: z.string(), // in gradi
+// 	giudizio_presa_carico: z.enum(['buono', 'scarso']),
+// 	frequenza_gesti: z.string(),
+// 	frequenza: z.enum(['1', '2', '3']),
+// 	peso_sollevato: z.string(),
+// });
 
 const Main = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { isSubmitting, errors },
-	} = useForm<FormValues>({
-		resolver: zodResolver(schema),
-	});
+		formState: { isSubmitting },
+	} = useForm<FormValues>();
+	// 	{
+	// 	resolver: zodResolver(schema),
+	// }
 
-	const onSubmit: SubmitHandler<FormValues> = (data) => {
+	const onSubmit: SubmitHandler<FormValues> = async (data) => {
 		console.log('REVEICED: ', data);
-	};
 
-	console.log(errors);
+		const doc = new jsPDF();
+
+		doc.save('documento-valutazione-rischi.pdf');
+	};
 
 	return (
 		<>
