@@ -1,16 +1,10 @@
 import React from 'react';
 
-interface LabelProps {
-	htmlFor: string;
-	children: React.ReactNode;
-}
+type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
-export default function Label({ htmlFor, children }: LabelProps) {
+export default function Label({ children, ...props }: LabelProps) {
 	return (
-		<label
-			htmlFor={htmlFor}
-			className='block text-sm font-medium leading-6'
-		>
+		<label {...props} className='block text-sm font-medium leading-6'>
 			{children}
 		</label>
 	);
