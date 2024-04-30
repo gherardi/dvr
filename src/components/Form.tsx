@@ -14,10 +14,12 @@ export default function Form({ onSubmit }: FormProps) {
 	const {
 		register,
 		handleSubmit,
-		formState: { isSubmitting },
+		formState: { errors, isSubmitting },
 	} = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 	});
+
+	console.table(errors);
 
 	return (
 		<>
@@ -25,40 +27,32 @@ export default function Form({ onSubmit }: FormProps) {
 				<div className='grid gap-y-10 gap-x-8 md:grid-cols-2 [&>*]:space-y-1 [&>*]:mt-auto'>
 					<div>
 						<Label htmlFor='ragione_sociale'>Ragione sociale</Label>
-						<div>
-							<Input
-								{...register('ragione_sociale')}
-								id='ragione_sociale'
-								type='text'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('ragione_sociale')}
+							id='ragione_sociale'
+							type='text'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
 						<Label htmlFor='costante_peso'>Costante di peso</Label>
-						<div>
-							<select {...register('costante_peso')} id='costante_peso'>
-								<option value='UOMO' selected>
-									Uomo
-								</option>
-								<option value='DONNA'>Donna</option>
-							</select>
-						</div>
+						<select {...register('costante_peso')} id='costante_peso'>
+							<option value='UOMO'>Uomo</option>
+							<option value='DONNA'>Donna</option>
+						</select>
 					</div>
 
 					<div>
 						<Label htmlFor='altezza_mani_terra'>
 							Altezza delle mani da terra all'inizio del sollevamento
 						</Label>
-						<div>
-							<Input
-								{...register('altezza_mani_terra')}
-								id='altezza_mani_terra'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('altezza_mani_terra')}
+							id='altezza_mani_terra'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
@@ -66,14 +60,12 @@ export default function Form({ onSubmit }: FormProps) {
 							Distanza verticale di spostamento del peso da inizio a fine
 							sollevamento
 						</Label>
-						<div>
-							<Input
-								{...register('distanza_verticale_peso')}
-								id='distanza_verticale_peso'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('distanza_verticale_peso')}
+							id='distanza_verticale_peso'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
@@ -81,43 +73,37 @@ export default function Form({ onSubmit }: FormProps) {
 							Distanza orizzontale tra le mani ed il punto di mezzo delle
 							caviglie
 						</Label>
-						<div>
-							<Input
-								{...register('distanza_orizzontale_mani')}
-								id='distanza_orizzontale_mani'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('distanza_orizzontale_mani')}
+							id='distanza_orizzontale_mani'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
 						<Label htmlFor='dislocazione_angolare'>
 							Dislocazione angolare del peso
 						</Label>
-						<div>
-							<Input
-								{...register('dislocazione_angolare')}
-								id='dislocazione_angolare'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('dislocazione_angolare')}
+							id='dislocazione_angolare'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
 						<Label htmlFor='giudizio_presa_carico'>
 							Giudizio sulla presa di carico
 						</Label>
-						<div>
-							<select
-								{...register('giudizio_presa_carico')}
-								id='giudizio_presa_carico'
-							>
-								<option value='buono'>Buono</option>
-								<option value='scarso'>Scarso</option>
-							</select>
-						</div>
+						<select
+							{...register('giudizio_presa_carico')}
+							id='giudizio_presa_carico'
+						>
+							<option value='buono'>Buono</option>
+							<option value='scarso'>Scarso</option>
+						</select>
 					</div>
 
 					<div>
@@ -125,41 +111,35 @@ export default function Form({ onSubmit }: FormProps) {
 							Frequenza dei gesti: Numero di atti di sollevamento in relazione
 							alla durata (vedi voce successiva)
 						</Label>
-						<div>
-							<Input
-								{...register('frequenza_gesti')}
-								id='frequenza_gesti'
-								name='frequenza_gesti'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('frequenza_gesti')}
+							id='frequenza_gesti'
+							name='frequenza_gesti'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
 						<Label htmlFor='frequenza'>Frequenza</Label>
-						<div>
-							<Input
-								{...register('frequenza')}
-								id='frequenza'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('frequenza')}
+							id='frequenza'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 
 					<div>
 						<Label htmlFor='peso_sollevato'>
 							Peso effettivamente sollevato
 						</Label>
-						<div>
-							<Input
-								{...register('peso_sollevato')}
-								id='peso_sollevato'
-								type='number'
-								disabled={isSubmitting}
-							/>
-						</div>
+						<Input
+							rhf={register('peso_sollevato')}
+							id='peso_sollevato'
+							type='number'
+							disabled={isSubmitting}
+						/>
 					</div>
 				</div>
 
