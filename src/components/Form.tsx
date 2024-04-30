@@ -19,8 +19,6 @@ export default function Form({ onSubmit }: FormProps) {
 		resolver: zodResolver(formSchema),
 	});
 
-	console.table(errors);
-
 	return (
 		<>
 			<form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>

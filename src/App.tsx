@@ -2,7 +2,9 @@ import Form from './components/Form.tsx';
 import { FormValues } from './utils/types';
 
 export default function App() {
-	const onSubmit = (data: FormValues) => console.log(data);
+	const onSubmit = (data: FormValues) => {
+		console.log(data);
+	};
 
 	return (
 		<>
