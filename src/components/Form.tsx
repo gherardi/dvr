@@ -94,7 +94,7 @@ export default function Form({ onSubmit, done, result }: FormProps) {
 					<div>
 						<Label htmlFor='distanza_verticale_peso'>
 							Distanza verticale di spostamento del peso da inizio a fine
-							sollevamento
+							sollevamento (cm)
 						</Label>
 						<select
 							{...register('distanza_verticale_peso')}
@@ -119,7 +119,7 @@ export default function Form({ onSubmit, done, result }: FormProps) {
 					<div>
 						<Label htmlFor='distanza_orizzontale_mani'>
 							Distanza orizzontale tra le mani ed il punto di mezzo delle
-							caviglie
+							caviglie (cm)
 						</Label>
 						<select
 							{...register('distanza_orizzontale_mani')}
@@ -142,7 +142,7 @@ export default function Form({ onSubmit, done, result }: FormProps) {
 
 					<div>
 						<Label htmlFor='dislocazione_angolare'>
-							Dislocazione angolare del peso
+							Dislocazione angolare del peso (in gradi)
 						</Label>
 						<select
 							{...register('dislocazione_angolare')}
@@ -213,7 +213,7 @@ export default function Form({ onSubmit, done, result }: FormProps) {
 
 					<div>
 						<Label htmlFor='peso_sollevato'>
-							Peso effettivamente sollevato
+							Peso effettivamente sollevato (in kg)
 						</Label>
 						<Input
 							rhf={register('peso_sollevato')}
